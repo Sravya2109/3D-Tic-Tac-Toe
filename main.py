@@ -245,9 +245,29 @@ def main():
         draw_grid()
         draw_spheres()
         if winner:
-            draw_winner_message(winner)
+            # Show last move
+            pygame.display.flip()
+            pygame.time.wait(500)
+
+            # Close OpenGL window
+            pygame.display.quit()
+            pygame.display.init()
+
+            # Create a new 2D window to display winner text
+            screen = pygame.display.set_mode((800, 600))
+            screen.fill((255, 255, 255))  # White background
+
+            font = pygame.font.SysFont('Arial', 72, True)
+            text_surface = font.render(winner, True, (255, 0, 0))
+            text_rect = text_surface.get_rect(center=(400, 300))
+            screen.blit(text_surface, text_rect)
+
+            pygame.display.flip()
+            pygame.time.wait(3000)
+            pygame.quit()
+            sys.exit()
         pygame.display.flip()
         clock.tick(60)
 
-if __name__ == "__main__":
+if __name__=="__main__":
     main()
